@@ -536,9 +536,9 @@ bundle:
 .PHONY: bundle-fw
 bundle-fw:
 	cp enigma $(bundle_name)/Contents/MacOS/enigma
-	mkdir  $(bundle_name)/Contents/Frameworks
-	for i in SDL SDL_mixer SDL_image SDL_ttf ; do \
-	  cp -a /Library/Frameworks/$${i}.framework $(bundle_name)/Contents/Frameworks/; \
+	mkdir  $(bundle_name)/Contents/lib
+	for i in SDL2 SDL2_mixer SDL2_image SDL2_ttf ; do \
+	  cp -R -L @SDL2_PREFIX@/lib/lib$${i}.dylib $(bundle_name)/Contents/lib/; \
 	done
 	strip $(bundle_name)/Contents/MacOS/enigma
 

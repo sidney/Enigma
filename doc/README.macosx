@@ -15,7 +15,7 @@ the Xcode Command Line Tools, then install Homebrew.
 
 Complete documentation on Homebrew is in their wiki, whose link can be
 found just below the installation instructions on their web site home
-http://brew.sh
+https://brew.sh
 
 After installing Xcode or the Command Line Tools, enter the following
 command line in Terminal to install Homebrew:
@@ -26,33 +26,15 @@ Then follow the instructions to have Homebrew installed in just a few minutes.
 Be sure to run brew doctor as it advises you to, and correct any problems
 that it discovers with your configuration.
 
-You also need to install four framework packages from the SDL project. The frameworks
-are required to build enigma, but do not have to be installed by end-users as the
-necessary framework files will be bundled with the Enigma application.
-
-On each of the following pages you will find a download link labeled for Mac OS X Intel 10.5+
-Download the dmg file at the link, open it, and drag the folder named, for example,
-SDL.framework,  into /Library/Frameworks/
-
-https://www.libsdl.org/download-1.2.php
-https://www.libsdl.org/projects/SDL_image/release-1.2.html
-https://www.libsdl.org/projects/SDL_mixer/release-1.2.html
-https://www.libsdl.org/projects/SDL_ttf/release-1.2.html
-
-If you have done this correctly, /Library/Frameworks will have added to it folders named
-
-SDL.framework
-SDL_image.framework
-SDL_mixer.framework
-SDL_ttf.framework
-
-Once Homebrew and the SDL frameworks are installed, download the file enigma-game.rb from
-the Enigma web site and place it in directory /usr/local/Library/Formula/
-which is where the Homebrew formula files are stored.
-
 Then to build Enigma run the command
 
- brew -v install enigma-game
+ brew -v install sidney/Enigma/enigma-game --HEAD
+
+After doing that the first time, subsequent brew commands can refer to just enigma-game instgead of sidney/Enigma/enigma-game.
+
+(This will change to
+ brew -v install Enigma-Game/Enigma/enigma-game
+eventually)
 
 That will download, build, and install all the prerequisites and if all
 goes well will create the file /usr/local/share/enigma.dmg
