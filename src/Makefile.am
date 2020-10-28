@@ -565,7 +565,7 @@ bundle-doc:
 	cp $(top_builddir)/ACKNOWLEDGEMENTS $(bundle_doc)/
 	cp $(top_builddir)/etc/README-SDL.txt $(bundle_doc)/
 	cp $(top_builddir)/doc/index.html $(bundle_doc)/
-	mkalias -r $(bundle_doc)/index.html $(bundle_root)/EnigmaDocs.html
+	echo mkalias -r $(bundle_doc)/index.html $(bundle_root)/EnigmaDocs.html
 	cp $(top_builddir)/doc/gpl.txt $(bundle_doc)/
 	cp $(top_builddir)/doc/lgpl.txt $(bundle_doc)/
 	cp $(top_builddir)/doc/README.mingw32 $(bundle_doc)/
@@ -590,5 +590,5 @@ bundle-doc:
 # Special target to make a disk image of the bundled app
 .PHONY: bundle-dmg
 bundle-dmg:
-	hdiutil create -verbose  -ov -srcfolder $(bundle_root) -volname Enigma -imagekey zlib-level=6 $(top_builddir)/etc/enigma.dmg
+	hdiutil create -debug  -ov -srcfolder $(bundle_root) -volname Enigma -imagekey zlib-level=6 $(top_builddir)/etc/enigma.dmg
 
