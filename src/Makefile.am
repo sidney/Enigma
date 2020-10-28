@@ -538,8 +538,11 @@ bundle-fw:
 	cp enigma $(bundle_name)/Contents/MacOS/enigma
 	mkdir  $(bundle_name)/Contents/lib
 	for i in SDL2 SDL2_mixer SDL2_image SDL2_ttf ; do \
-	  cp -R -L @SDL2_PREFIX@/lib/lib$${i}.dylib $(bundle_name)/Contents/lib/; \
+	  cp -R -L @SDL2_PREFIX@/lib$${i}.dylib $(bundle_name)/Contents/lib/; \
 	done
+	cp -R -L @FREETYPE_PREFIX@/libfreetype.dylib $(bundle_name)/Contents/lib/; \
+	cp -R -L @PNG_PREFIX@/lib$${i}.dylib $(bundle_name)/Contents/lib/; \
+	cp -R -L @XERCESC_PREFIX@/lib$${i}.dylib $(bundle_name)/Contents/lib/; \
 	strip $(bundle_name)/Contents/MacOS/enigma
 
 # Special target to create the preview images into the app bundle
@@ -561,7 +564,7 @@ bundle-doc:
 	cp $(top_builddir)/ACKNOWLEDGEMENTS $(bundle_doc)/
 	cp $(top_builddir)/etc/README-SDL.txt $(bundle_doc)/
 	cp $(top_builddir)/doc/index.html $(bundle_doc)/
-	mkalias -r $(bundle_doc)/index.html $(bundle_root)/EnigmaDocs.html
+	ln -s $(bundle_doc)/index.html $(bundle_root)/EnigmaDocs.html
 	cp $(top_builddir)/doc/gpl.txt $(bundle_doc)/
 	cp $(top_builddir)/doc/lgpl.txt $(bundle_doc)/
 	cp $(top_builddir)/doc/README.mingw32 $(bundle_doc)/
