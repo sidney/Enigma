@@ -590,5 +590,5 @@ bundle-doc:
 # Special target to make a disk image of the bundled app
 .PHONY: bundle-dmg
 bundle-dmg:
-	hdiutil create  -ov -srcfolder $(bundle_root) -volname Enigma -imagekey zlib-level=6 $(top_builddir)/etc/enigma.dmg
+	hdiutil create -verbose  -ov -srcfolder $(bundle_root) -volname Enigma -imagekey zlib-level=6 $(top_builddir)/etc/enigma.dmg
 
