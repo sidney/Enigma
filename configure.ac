@@ -151,7 +151,7 @@ SDL_LIBS="$SDL_LIBS -lSDL2_ttf"
 
 if test "x$MACOSX" = xyes; then
  SDL2_PREFIX=`$SDL2_CONFIG $sdl2_config_args --variable=libdir`
- SDL_LIBS="-Wl,-rpath,@loader_path/../lib -framework AudioToolbox -framework AudioUnit -framework Cocoa -framework CoreAudio -framework IOKit -framework CoreFoundation -framework Carbon -framework CoreServices -framework ApplicationServices -framework Foundation -framework AppKit -framework OpenGL -lSDL2 -lSDL2_mixer -lSDL2_image -lSDL2_ttf $SDL2_PREFIX/lib/libSDL2main.a"
+ SDL_LIBS="-Wl,-rpath,@loader_path/../lib -framework AudioToolbox -framework AudioUnit -framework Cocoa -framework CoreAudio -framework IOKit -framework CoreFoundation -framework Carbon -framework CoreServices -framework ApplicationServices -framework Foundation -framework AppKit -framework OpenGL -lSDL2 -lSDL2_mixer -lSDL2_image -lSDL2_ttf $SDL2_PREFIX/libSDL2main.a"
 AC_SUBST(SDL2_PREFIX)
 fi
 
