@@ -549,8 +549,8 @@ bundle-fw:
 	  cp -R -L @SDL2_PREFIX@/lib$${i}.dylib $(bundle_name)/Contents/lib/; \
 	done
 	cp -R -L @FREETYPE_PREFIX@/libfreetype.dylib $(bundle_name)/Contents/lib/; \
-	cp -R -L @PNG_PREFIX@/lib$${i}.dylib $(bundle_name)/Contents/lib/; \
-	cp -R -L @XERCESC_PREFIX@/lib$${i}.dylib $(bundle_name)/Contents/lib/; \
+	cp -R -L @PNG_PREFIX@/libpng.dylib $(bundle_name)/Contents/lib/; \
+	cp -R -L @XERCESC_PREFIX@/libxerces.dylib $(bundle_name)/Contents/lib/; \
 	strip $(bundle_name)/Contents/MacOS/enigma
 
 # Special target to create the preview images into the app bundle
