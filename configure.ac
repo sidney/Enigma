@@ -210,7 +210,7 @@ dnl ---------------------------------------
 if test "x$MACOSX" = xyes; then
   CFLAGS="$CFLAGS_NOSDL"
   CXXFLAGS="$CXXFLAGS_NOSDL"
-  LIBENET_PREFIX=`$PKG_CONFIG libent --variable libdir`
+  LIBENET_PREFIX=`$PKG_CONFIG libenet --variable libdir`
   FREETYPE_PREFIX=`$PKG_CONFIG freetype2 --variable libdir`
   PNG_PREFIX=`$PKG_CONFIG libpng --variable libdir`
   XERCESC_PREFIX=`$PKG_CONFIG xerces-c --variable libdir`
