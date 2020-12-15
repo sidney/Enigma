@@ -544,10 +544,13 @@ bundle:
 .PHONY: bundle-fw
 bundle-fw:
 	cp enigma $(bundle_name)/Contents/MacOS/enigma
-	mkdir  $(bundle_name)/Contents/Frameworks
-	for i in SDL SDL_mixer SDL_image SDL_ttf ; do \
-	  cp -a /Library/Frameworks/$${i}.framework $(bundle_name)/Contents/Frameworks/; \
+	mkdir  $(bundle_name)/Contents/lib
+	for i in SDL2 SDL2_mixer SDL2_image SDL2_ttf ; do \
+	  cp -R -L @SDL2_PREFIX@/lib$${i}.dylib $(bundle_name)/Contents/lib/; \
 	done
+	cp -R -L @FREETYPE_PREFIX@/libfreetype.dylib $(bundle_name)/Contents/lib/; \
+	cp -R -L @PNG_PREFIX@/lib$${i}.dylib $(bundle_name)/Contents/lib/; \
+	cp -R -L @XERCESC_PREFIX@/lib$${i}.dylib $(bundle_name)/Contents/lib/; \
 	strip $(bundle_name)/Contents/MacOS/enigma
 
 # Special target to create the preview images into the app bundle
@@ -591,8 +594,9 @@ bundle-doc:
 	cp $(top_builddir)/doc/reference/images/*.png $(bundle_doc)/reference/images/
 	cp $(top_builddir)/doc/reference/*.html $(bundle_doc)/reference/
 
-# Special target to make a disk image of the bundled app
+# Special target to make a Mac dmg disk image of the bundled app.
+# hdiutil create one liner would get permission error in Homebrew's restricted build shell
 .PHONY: bundle-dmg
 bundle-dmg:
-	hdiutil create  -ov -srcfolder $(bundle_root) -volname Enigma -imagekey zlib-level=6 $(top_builddir)/etc/enigma.dmg
-
+	hdiutil makehybrid -default-volume-name Enigma -hfs -o $(top_builddir)/etc/enigma.dmg $(bundle_root)
+	hdiutil convert -format UDZO -imagekey zlib-level=6 -ov -o $(top_builddir)/etc/enigma.dmg $(top_builddir)/etc/enigma.dmg
