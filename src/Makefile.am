@@ -600,5 +600,6 @@ bundle-doc:
 # hdiutil create one liner would get permission error in Homebrew's restricted build shell
 .PHONY: bundle-dmg
 bundle-dmg:
+	mkalias -r /Applications $(bundle_root)/Applications
 	hdiutil makehybrid -default-volume-name Enigma -hfs -o $(top_builddir)/etc/enigma.dmg $(bundle_root)
 	hdiutil convert -format UDZO -imagekey zlib-level=6 -ov -o $(top_builddir)/etc/enigma.dmg $(top_builddir)/etc/enigma.dmg
