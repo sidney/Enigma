@@ -544,15 +544,7 @@ bundle:
 .PHONY: bundle-fw
 bundle-fw:
 	cp enigma $(bundle_name)/Contents/MacOS/enigma
-	mkdir  $(bundle_name)/Contents/lib
-	for i in SDL2 SDL2_mixer SDL2_image SDL2_ttf ; do \
-	  cp -R -L @SDL2_PREFIX@/lib$${i}.dylib $(bundle_name)/Contents/lib/; \
-	done
-	cp -R -L @LIBINTL_PREFIX@/libintl.dylib $(bundle_name)/Contents/lib/; \
-	cp -R -L @LIBENET_PREFIX@/libenet.dylib $(bundle_name)/Contents/lib/; \
-	cp -R -L @FREETYPE_PREFIX@/libfreetype.dylib $(bundle_name)/Contents/lib/; \
-	cp -R -L @PNG_PREFIX@/libpng.dylib $(bundle_name)/Contents/lib/; \
-	cp -R -L @XERCESC_PREFIX@/libxerces-c.dylib $(bundle_name)/Contents/lib/; \
+	dylibbundler -od -x $(bundle_name)/Contents/MacOS/enigma -b -d $(bundle_name)/Contents/lib/ -p @executable_path/../lib/
 	strip $(bundle_name)/Contents/MacOS/enigma
 
 # Special target to create the preview images into the app bundle
