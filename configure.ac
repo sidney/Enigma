@@ -41,6 +41,8 @@ AM_CONDITIONAL(MINGW32, test x$MINGW32 = xyes)
 AM_CONDITIONAL(LINUX, test x$LINUX = xyes)
 
 dnl ----------------------------------------
+dnl This comment block is obsolete, but leaving it in until I or someone figures out if the script lines after can simply be removed.
+dnl  now that nothing needs to be done to try for a static link. Maybe we don't even need the with-linitl-prefix option anymore?
 dnl Mac requires libintl to be linked statically and doesn't make that easy
 dnl gettext project (for libintl) refuses to support use of pkg-config but doesn't provide an
 dnl equivalent way to get the lib directory it is installed in. This requires use of --with-libintl-prefix configure option.
@@ -203,23 +205,11 @@ else
 fi
 
 dnl ----------------------------------------
-dnl Mac requires libintl, libpng, freetype  and xerces-c to be linked statically and doesn't make that easy
-dnl Handle it by reverting to LIBS before the AC_CHECK_LIBS of png and xerces-c and prepending the static libs
-dnl pkg-config is not convenient to use. This works around in a bug currently in freetype2.pc that puts in extra quotes
+dnl On Mac SDL flags are set up differently. This is a bit of a kludge for it
 dnl ---------------------------------------
 if test "x$MACOSX" = xyes; then
   CFLAGS="$CFLAGS_NOSDL"
   CXXFLAGS="$CXXFLAGS_NOSDL"
-  LIBENET_PREFIX=`$PKG_CONFIG libenet --variable libdir`
-  FREETYPE_PREFIX=`$PKG_CONFIG freetype2 --variable libdir`
-  PNG_PREFIX=`$PKG_CONFIG libpng --variable libdir`
-  XERCESC_PREFIX=`$PKG_CONFIG xerces-c --variable libdir`
-  LIBINTL_PREFIX="$with_libintl_prefix/lib"
-  AC_SUBST(LIBENET_PREFIX)
-  AC_SUBST(FREETYPE_PREFIX)
-  AC_SUBST(PNG_PREFIX)
-  AC_SUBST(XERCESC_PREFIX)
-  AC_SUBST(LIBINTL_PREFIX)
 fi
 
 dnl ----------------------------------------

@@ -544,7 +544,6 @@ bundle:
 .PHONY: bundle-fw
 bundle-fw:
 	cp enigma $(bundle_name)/Contents/MacOS/enigma
-	dylibbundler -od -x $(bundle_name)/Contents/MacOS/enigma -b -d $(bundle_name)/Contents/lib/ -p @executable_path/../lib/
 	strip $(bundle_name)/Contents/MacOS/enigma
 
 # Special target to create the preview images into the app bundle
@@ -566,7 +565,6 @@ bundle-doc:
 	cp $(top_builddir)/ACKNOWLEDGEMENTS $(bundle_doc)/
 	cp $(top_builddir)/etc/README-SDL.txt $(bundle_doc)/
 	cp $(top_builddir)/doc/index.html $(bundle_doc)/
-	mkalias -r $(bundle_doc)/index.html $(bundle_root)/EnigmaDocs.html
 	cp $(top_builddir)/doc/gpl.txt $(bundle_doc)/
 	cp $(top_builddir)/doc/lgpl.txt $(bundle_doc)/
 	cp $(top_builddir)/doc/README.mingw32 $(bundle_doc)/
@@ -588,10 +586,12 @@ bundle-doc:
 	cp $(top_builddir)/doc/reference/images/*.png $(bundle_doc)/reference/images/
 	cp $(top_builddir)/doc/reference/*.html $(bundle_doc)/reference/
 
-# Special target to make a Mac dmg disk image of the bundled app.
-# hdiutil create one liner would get permission error in Homebrew's restricted build shell
+# Special target to make a Mac dmg disk image of the bundled app packaged with dylib dependencies.
+# 'hdiutil create' gets a permission error in Homebrew's build shell sandbox so this uses a two step process
 .PHONY: bundle-dmg
 bundle-dmg:
+	dylibbundler -od -x $(bundle_name)/Contents/MacOS/enigma -b -d $(bundle_name)/Contents/lib/ -p @executable_path/../lib/
+	mkalias -r $(bundle_doc)/index.html $(bundle_root)/EnigmaDocs.html
 	mkalias -r /Applications $(bundle_root)/Applications
 	hdiutil makehybrid -default-volume-name Enigma -hfs -o $(top_builddir)/etc/enigma.dmg $(bundle_root)
 	hdiutil convert -format UDZO -imagekey zlib-level=6 -ov -o $(top_builddir)/etc/enigma.dmg $(top_builddir)/etc/enigma.dmg
